@@ -27,39 +27,31 @@
     int stepen_plus = 0;
     for (int i = 0; i < count.Length; i++)
     {
-        
-        //разделение чисел с конца
-        answer = Math.Round((user_int % Math.Pow(10, (i + 1))) / Math.Pow(10, i), 0);
 
-        //поправление погрешности из-за округления
-        if (answer - (user_int % Math.Pow(10, (i + 1))) / Math.Pow(10, i) >= 0.1) {
-            answer--;   
-        }
+        //разделение чисел с конца
+        answer = Math.Floor((user_int % Math.Pow(10, (i + 1))) / Math.Pow(10, i));
 
         //умножение текущего числа на систему счисления, возведённую в степень разрядности 
         with_stepen = answer * Math.Pow(number_system, stepen_plus);
-        //Console.WriteLine($"число: {answer} умноженное на {number_system} в степени {stepen} = {with_stepen}");
 
         stepen_plus++;
         total_answer += with_stepen;
     }
 
     //Блок дробной части
-    string[] drobn_int2_str = user_int.ToString().Split(',');
-    double drobn_int2 = Convert.ToDouble(drobn_int2_str[1]);
-    int stepen_minus = Convert.ToInt32(drobn_int2_str[1].Length) * -1;
-    for (int i = 0; i < drobn_int2_str[1].Length; i++)
+    if (user_int.ToString().Contains(","))
     {
-        answer2 = Math.Round((drobn_int2 % Math.Pow(10, (i + 1))) / Math.Pow(10, i), 0);
-        if (answer2 - (drobn_int2 % Math.Pow(10, (i + 1))) / Math.Pow(10, i) >= 0.1)
+        string[] drobn_int2_str = user_int.ToString().Split(',');
+        double drobn_int2 = Convert.ToDouble(drobn_int2_str[1]);
+        int stepen_minus = Convert.ToInt32(drobn_int2_str[1].Length) * -1;
+        for (int i = 0; i < drobn_int2_str[1].Length; i++)
         {
-            answer2--;
+            answer2 = Math.Floor((drobn_int2 % Math.Pow(10, (i + 1))) / Math.Pow(10, i));
+            with_stepen_minus = answer2 * Math.Pow(number_system, stepen_minus);
+
+            stepen_minus++;
+            total_answer += with_stepen_minus;
         }
-        with_stepen_minus = answer2 * Math.Pow(number_system, stepen_minus);
-        //Console.WriteLine($"число: {answer2} умноженное на {number_system} в степени {stepen_minus} = {with_stepen_minus}");
-        
-        stepen_minus++;
-        total_answer += with_stepen_minus;
     }
 
     //Блок информации
@@ -69,11 +61,12 @@
     //Функционал выхода
     Console.WriteLine("\nВыйти? \n1) да");
     string u_answ = Console.ReadLine();
-    if (u_answ == "1") 
-    { 
-        break; 
-    }else 
+    if (u_answ == "1")
     {
-        Console.Clear(); 
+        break;
+    }
+    else
+    {
+        Console.Clear();
     }
 }
