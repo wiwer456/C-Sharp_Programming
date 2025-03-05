@@ -1,3 +1,5 @@
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 while (true)
 {
     double answer = 0;
@@ -7,6 +9,7 @@ while (true)
     double with_stepen = 0;
     double with_stepen_minus = 0;
     double drobn_int = 0;
+    double number_check = 0;
 
     Console.WriteLine("Введите число:");
     double user_int = Convert.ToDouble(Console.ReadLine());
@@ -18,9 +21,25 @@ while (true)
     while (number_system < 2 || number_system > 10)
     {
         Console.Clear();
-        Console.WriteLine("Недопустимый формат, попробуйте снова");
+        Console.WriteLine("!Недопустимый формат, попробуйте снова");
         Console.WriteLine("Введите систему счисления числа [от 2 до 10]:");
         number_system = Convert.ToInt32(Console.ReadLine());
+    }
+    number_check = user_int;
+    while (number_check > 0)
+    {
+        double for_num = number_check % 10;
+        if (for_num >= number_check)
+        {
+            Console.WriteLine("!Некоторые из чисел в предложенном числе не соответствуют системе счисления");
+            Console.WriteLine("Введите систему счисления числа [от 2 до 10]:");
+            user_int = Convert.ToInt32(Console.ReadLine());
+            number_check = user_int;
+        }
+        else
+        {
+            number_check /= 10;
+        }
     }
 
     Console.WriteLine("Введите систему счисления итогового числа [от 2 до 10]:");
@@ -28,7 +47,7 @@ while (true)
     while (number_system2 < 2 || number_system2 > 10)
     {
         Console.Clear();
-        Console.WriteLine("Недопустимый формат, попробуйте снова");
+        Console.WriteLine("!Недопустимый формат, попробуйте снова");
         Console.WriteLine("Введите систему счисления числа [от 2 до 10]:");
         number_system = Convert.ToInt32(Console.ReadLine());
     }
