@@ -2,38 +2,66 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 while (true)
 {
+    double user_int;
+    int number_system;
+    int number_system2;
     double answer = 0;
     double answer2 = 0;
     double total_answer = 0;
-    double total_answer2 = 0;
     double with_stepen = 0;
     double with_stepen_minus = 0;
     double drobn_int = 0;
     double number_check = 0;
 
-    Console.WriteLine("Введите число:");
-    double user_int = Convert.ToDouble(Console.ReadLine());
-    int count = user_int.ToString().Length;
-    Console.Clear();
-
-    Console.WriteLine("Введите систему счисления числа [от 2 до 10]:");
-    int number_system = Convert.ToInt32(Console.ReadLine());
-    while (number_system < 2 || number_system > 10)
+    while (true)
     {
-        Console.Clear();
-        Console.WriteLine("!Недопустимый формат, попробуйте снова");
-        Console.WriteLine("Введите систему счисления числа [от 2 до 10]:");
-        number_system = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Введите число: ");
+        if (double.TryParse(Console.ReadLine(), out user_int))
+        {
+            break;
+        }
+        else
+        {
+            Console.WriteLine("!Недопустимый формат, попробуйте снова");
+        }
     }
+    int count = user_int.ToString().Length;
+
+    while (true)
+    {
+        Console.Write("Введите систему счисления числа [от 2 до 10]: ");
+        if (int.TryParse(Console.ReadLine(), out number_system))
+        {
+            break;
+        }
+        else
+        {
+            Console.WriteLine("!Недопустимый формат, попробуйте снова");
+        }
+    }
+
     number_check = user_int;
     while (number_check > 0)
     {
         double for_num = number_check % 10;
-        if (for_num >= number_check)
+        if (for_num >= number_system)
         {
             Console.WriteLine("!Некоторые из чисел в предложенном числе не соответствуют системе счисления");
-            Console.WriteLine("Введите систему счисления числа [от 2 до 10]:");
-            user_int = Convert.ToInt32(Console.ReadLine());
+
+            // Повторный запрос системы счисления
+            while (true)
+            {
+                Console.Write("Введите систему счисления числа [от 2 до 10]: ");
+                if (int.TryParse(Console.ReadLine(), out number_system) && number_system >= 2 && number_system <= 10)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("!Недопустимый формат, попробуйте снова");
+                }
+            }
+
             number_check = user_int;
         }
         else
@@ -42,14 +70,17 @@ while (true)
         }
     }
 
-    Console.WriteLine("Введите систему счисления итогового числа [от 2 до 10]:");
-    int number_system2 = Convert.ToInt32(Console.ReadLine());
-    while (number_system2 < 2 || number_system2 > 10)
+    while (true)
     {
-        Console.Clear();
-        Console.WriteLine("!Недопустимый формат, попробуйте снова");
-        Console.WriteLine("Введите систему счисления числа [от 2 до 10]:");
-        number_system = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Введите систему счисления итогового числа [от 2 до 10]: ");
+        if (int.TryParse(Console.ReadLine(), out number_system2))
+        {
+            break;
+        }
+        else
+        {
+            Console.WriteLine("!Недопустимый формат, попробуйте снова");
+        }
     }
 
     //Блок целой части (в десятичную)
@@ -79,7 +110,6 @@ while (true)
             total_answer += with_stepen_minus;
         }
     }
-    Console.WriteLine($"число {user_int} в системе счисления {number_system} = {total_answer} в десятичной");
 
     //если не в десятичную систему
     if (number_system2 >= 2 || number_system2 < 10)
@@ -90,7 +120,7 @@ while (true)
         string temp_answer_minus = "";
         //целая часть
         double tmp1;
-        while(user_int_post1 > 0)
+        while (user_int_post1 > 0)
         {
             tmp1 = Math.Floor(user_int_post1 % number_system2);
             temp_answer_plus = tmp1.ToString() + temp_answer_plus;
@@ -100,12 +130,12 @@ while (true)
         if (total_answer.ToString().Contains(","))
         {
             string[] user_int_post = total_answer.ToString().Split(',');
-            double user_int_post2 = Convert.ToDouble("0,"+user_int_post[1]);
+            double user_int_post2 = Convert.ToDouble("0," + user_int_post[1]);
             for (int i = 0; i < 3; i++)
             {
                 string[] user_int_post2_split = (user_int_post2 * number_system2).ToString().Split(",");
                 temp_answer_minus += user_int_post2_split[0];
-                user_int_post2 = Convert.ToDouble("0,"+user_int_post2_split[1]);
+                user_int_post2 = Convert.ToDouble("0," + user_int_post2_split[1]);
             }
             total_answer = Convert.ToDouble($"{temp_answer_plus},{temp_answer_minus}");
         }
