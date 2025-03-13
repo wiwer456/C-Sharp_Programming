@@ -73,7 +73,7 @@ while (true)
                 Console.ResetColor();
                 continue;
             }
-            if (y == 0)
+            if (y0 == 0)
             {
                 if (a > 180)
                 {
@@ -114,7 +114,7 @@ while (true)
         Console.WriteLine($"|    {Math.Round(x, 2)}   |   {Math.Round(y, 2)}   ");
         t += 0.1;
     }
-    Console.WriteLine($"|    {Math.Round((2*(v0*v0)*Math.Sin(a_radian)*Math.Cos(a_radian))/g, 2)}   |   0   ");
+    
 
     //Console.WriteLine("---\nДополнительные сведения:");
     //string con = "";
